@@ -73,7 +73,6 @@ fun SignUpScreen() {
         }
     }
 }
-
 @Preview
 @Composable
 fun DefaultPreviewOfSignUpScreen() {
