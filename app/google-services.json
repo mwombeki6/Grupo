@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "14797200259",
+    "project_id": "grupo-auth",
+    "storage_bucket": "grupo-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14797200259:android:ce2e5903f006f6466c74b6",
+        "android_client_info": {
+          "package_name": "com.example.grupo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4Jtmtq7fl3z2wdFYwjAXNV2WIGLtdK9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
