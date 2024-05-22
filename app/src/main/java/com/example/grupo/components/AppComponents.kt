@@ -38,6 +38,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -84,7 +85,8 @@ fun HeadingTextComponent(value: String) {
 }
 
 @Composable
-fun MyTextFieldComponent(labelValue: String, painterResource: Painter) {
+fun MyTextFieldComponent(labelValue: String, painterResource: Painter,
+                         onTextSelected: (String) -> Unit) {
     val textValue = remember {
         mutableStateOf("")
     }
@@ -99,10 +101,11 @@ fun MyTextFieldComponent(labelValue: String, painterResource: Painter) {
             focusedBorderColor = PurpleGrey40,
             focusedLabelColor = PurpleGrey40,
         ),
-        keyboardOptions = KeyboardOptions.Default,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         value = textValue.value,
         onValueChange = {
             textValue.value = it
+            onTextSelected(it)
         },
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
@@ -110,7 +113,7 @@ fun MyTextFieldComponent(labelValue: String, painterResource: Painter) {
 }
 
 @Composable
-fun PasswordTextFieldComponent(labelValue: String, painterResource: Painter) {
+fun PasswordTextFieldComponent(labelValue: String, painterResource: Painter, onTextSelected: (String) -> Unit) {
     val password = remember {
         mutableStateOf("")
     }
@@ -133,6 +136,7 @@ fun PasswordTextFieldComponent(labelValue: String, painterResource: Painter) {
         value = password.value,
         onValueChange = {
             password.value = it
+            onTextSelected(it)
         },
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
@@ -211,9 +215,9 @@ fun ClickableTextComponent(onTextSelected: (String) -> Unit) {
 }
 
 @Composable
-fun ButtonComponent(value: String) {
+fun ButtonComponent(value: String, onButtonClicked : () -> Unit) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { onButtonClicked.invoke() },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),

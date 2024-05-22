@@ -23,12 +23,14 @@ import com.example.grupo.components.HeadingTextComponent
 import com.example.grupo.components.MyTextFieldComponent
 import com.example.grupo.components.NormalTextComponent
 import com.example.grupo.components.PasswordTextFieldComponent
+import com.example.grupo.data.LoginViewModel
+import com.example.grupo.data.UIEvent
 import com.example.grupo.navigation.GrupoAppRouter
 import com.example.grupo.navigation.Screen
 import com.example.grupo.navigation.SystemBackButtonHandler
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(loginViewModel: LoginViewModel = LoginViewModel()) {
     Surface(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.White)
@@ -40,11 +42,17 @@ fun LoginScreen() {
             Spacer(modifier = Modifier.height(20.dp))
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.email),
-                painterResource(id = R.drawable.email)
+                painterResource(id = R.drawable.email),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.EmailChanged(it))
+                }
             )
             PasswordTextFieldComponent(
                 labelValue = stringResource(id = R.string.password),
-                painterResource(id = R.drawable.lock)
+                painterResource(id = R.drawable.lock),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+                }
             )
             Spacer(modifier = Modifier.height(10.dp))
             ClickableForgotPasswordComponent {
@@ -52,7 +60,9 @@ fun LoginScreen() {
             }
             Spacer(modifier = Modifier.height(175.dp))
 
-            ButtonComponent(value = stringResource(id = R.string.login))
+            ButtonComponent(value = stringResource(id = R.string.login), onButtonClicked = {
+                loginViewModel.onEvent(UIEvent.RegisterButtonClicked)
+            })
 
             Spacer(modifier = Modifier.height(20.dp))
 

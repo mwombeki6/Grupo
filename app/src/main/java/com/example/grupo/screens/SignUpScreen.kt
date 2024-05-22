@@ -23,11 +23,13 @@ import com.example.grupo.components.HeadingTextComponent
 import com.example.grupo.components.MyTextFieldComponent
 import com.example.grupo.components.NormalTextComponent
 import com.example.grupo.components.PasswordTextFieldComponent
+import com.example.grupo.data.LoginViewModel
+import com.example.grupo.data.UIEvent
 import com.example.grupo.navigation.GrupoAppRouter
 import com.example.grupo.navigation.Screen
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(loginViewModel: LoginViewModel = LoginViewModel()) {
     Surface(
 
         modifier = Modifier
@@ -41,19 +43,31 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(20.dp))
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.first_name),
-                painterResource(id = R.drawable.profile)
+                painterResource(id = R.drawable.profile),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.FirstNameChanged(it))
+                }
             )
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.last_name),
-                painterResource(id = R.drawable.profile)
+                painterResource(id = R.drawable.profile),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.LastNameChanged(it))
+                }
             )
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.email),
-                painterResource(id = R.drawable.email)
+                painterResource(id = R.drawable.email),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.EmailChanged(it))
+                }
             )
             PasswordTextFieldComponent(
                 labelValue = stringResource(id = R.string.password),
-                painterResource(id = R.drawable.lock)
+                painterResource(id = R.drawable.lock),
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+                }
             )
             CheckboxComponent(onTextSelected = {
                 GrupoAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
@@ -61,7 +75,9 @@ fun SignUpScreen() {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            ButtonComponent(value = stringResource(id = R.string.register))
+            ButtonComponent(value = stringResource(id = R.string.register), onButtonClicked = {
+                loginViewModel.onEvent(UIEvent.RegisterButtonClicked)
+            })
 
             Spacer(modifier = Modifier.height(20.dp))
 
