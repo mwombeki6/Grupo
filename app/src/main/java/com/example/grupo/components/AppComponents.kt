@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -86,7 +87,9 @@ fun HeadingTextComponent(value: String) {
 
 @Composable
 fun MyTextFieldComponent(labelValue: String, painterResource: Painter,
-                         onTextSelected: (String) -> Unit) {
+                         onTextSelected: (String) -> Unit,
+                         errorStatus: Boolean = false
+) {
     val textValue = remember {
         mutableStateOf("")
     }
@@ -109,11 +112,18 @@ fun MyTextFieldComponent(labelValue: String, painterResource: Painter,
         },
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
-        })
+        },
+        isError = !errorStatus
+        )
 }
 
 @Composable
-fun PasswordTextFieldComponent(labelValue: String, painterResource: Painter, onTextSelected: (String) -> Unit) {
+fun PasswordTextFieldComponent(labelValue: String, painterResource: Painter,
+                               onTextSelected: (String) -> Unit,
+                               errorStatus: Boolean = false
+) {
+
+    val localFocusManager = LocalFocusManager.current
     val password = remember {
         mutableStateOf("")
     }
@@ -158,7 +168,8 @@ fun PasswordTextFieldComponent(labelValue: String, painterResource: Painter, onT
                 Icon(imageVector = iconImage, contentDescription = description)
             }
         },
-        visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+        visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+        isError = !errorStatus
     )
 }
 
